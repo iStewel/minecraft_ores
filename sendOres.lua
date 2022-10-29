@@ -1,5 +1,8 @@
 Modem = peripheral.wrap("right")
+Channel = 42
+
 Me = peripheral.wrap("bottom")
+
 OreNames = {
     {"alltheores:steel_ingot",colors.gray},
     {"minecraft:gold_ingot",colors.yellow},
@@ -31,7 +34,8 @@ OreNames = {
     {"productivebees:draconic_dust",colors.purple},
     {"minecraft:nether_star", colors.white},
     {"alltheores:uranium_ingot", colors.lime},
-    {"ae2:certus_quartz_crystal",colos.lightBlue}
+    {"ae2:certus_quartz_crystal",colors.lightBlue},
+    {"minecraft:quartz",colors.white}
 }
 
 function getColorIfWantedOre(ore)
@@ -68,9 +72,8 @@ function compareOres(a, b)
 end
 
 function sendOres(ores)
-    local channel = 42
     table.sort(ores, compareOres)
-    Modem.transmit(channel, channel ,ores)
+    Modem.transmit(Channel, Channel ,ores)
 end
 
 while true do
