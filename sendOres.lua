@@ -27,7 +27,9 @@ OreNames = {
     {"minecraft:lapis_lazuli",colors.blue},
     {"minecraft:diamond",colors.cyan},
     {"minecraft:emerald",colors.red},
-    {"productivebees:draconic_dust",colors.purple}
+    {"productivebees:draconic_dust",colors.purple},
+    {"minecraft:nether_star", colors.white},
+    {"alltheores:uranium_ingot", colors.lime}
 }
 
 function getColorIfWantedOre(ore)
@@ -65,7 +67,7 @@ end
 
 function sendOres(ores)
     local channel = 42
-    table.sort(ores, compare)
+    table.sort(ores, compareOres)
     Modem.transmit(channel, channel ,ores)
 end
 
