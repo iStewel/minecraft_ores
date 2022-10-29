@@ -4,46 +4,46 @@ Channel = 42
 Me = peripheral.wrap("bottom")
 
 OreNames = {
-    {"alltheores:steel_ingot",colors.gray},
-    {"minecraft:gold_ingot",colors.yellow},
-    {"alltheores:osmium_ingot",colors.lightBlue},
-    {"minecraft:iron_ingot",colors.lightGray},
-    {"allthemodium:vibranium_ingot",colors.green},
-    {"alltheores:tin_ingot",colors.white},
-    {"alltheores:aluminum_ingot",colors.lightGray},
-    {"silentgear:crimson_iron_ingot",colors.pink},
-    {"alltheores:platinum_ingot",colors.cyan},
-    {"alltheores:zinc_ingot",colors.lightBlue},
-    {"minecraft:copper_ingot",colors.orange},
-    {"minecraft:netherite_ingot",colors.gray},
-    {"alltheores:lead_ingot",colors.blue},
-    {"allthemodium:unobtainium_ingot",colors.magenta},
-    {"silentgear:blaze_gold_ingot",colors.orange},
-    {"alltheores:nickel_ingot",colors.white},
-    {"allthemodium:allthemodium_ingot",colors.orange},
-    {"biggerreactors:graphite_ingot",colors.gray},
-    {"mekanism:ingot_steel",colors.lightGray},
-    {"immersiveengineering:ingot_aluminum",colors.lightGray},
-    {"silentgear:crimson_steel_ingot",colors.red},
-    {"mekanism:ingot_refined_obsidian",colors.purple},
-    {"minecraft:netherite_scrap",colors.gray},
-    {"minecraft:lapis_lazuli",colors.blue},
-    {"minecraft:diamond",colors.cyan},
-    {"minecraft:emerald",colors.lime},
-    {"minecraft:redstone",colors.red},
-    {"productivebees:draconic_dust",colors.purple},
-    {"minecraft:nether_star", colors.white},
-    {"alltheores:uranium_ingot", colors.lime},
-    {"ae2:certus_quartz_crystal",colors.lightBlue},
-    {"minecraft:quartz",colors.white}
+    {"alltheores:steel_ingot",colors.gray,"mysticalagriculture:steel_essence",0.375},
+    {"minecraft:gold_ingot",colors.yellow,"mysticalagriculture:gold_essence",0.5},
+    {"alltheores:osmium_ingot",colors.lightBlue,"mysticalagriculture:osmium_essence",0.5},
+    {"minecraft:iron_ingot",colors.lightGray,"mysticalagriculture:iron_essence", 0.75},
+    {"allthemodium:vibranium_ingot",colors.green,"mysticalagriculture:vibranium_essence", 0.0139},
+    {"alltheores:tin_ingot",colors.white,"mysticalagriculture:tin_essence", 0.5},
+    {"alltheores:aluminum_ingot",colors.lightGray,"mysticalagriculture:aluminum_essence", 1},
+    {"silentgear:crimson_iron_ingot",colors.pink,"mysticalagriculture:crimson_iron_essence", 0.75},
+    {"alltheores:platinum_ingot",colors.cyan,"mysticalagriculture:platinum_essence", 0.25},
+    {"alltheores:zinc_ingot",colors.lightBlue,"mysticalagriculture:zinc_essence", 0.5},
+    {"minecraft:copper_ingot",colors.orange,"mysticalagriculture:copper_essence", 0.75},
+    {"minecraft:netherite_ingot",colors.gray,"mysticalagriculture:netherite_essence", 0.125},
+    {"alltheores:lead_ingot",colors.blue,"mysticalagriculture:lead_essence", 0.5},
+    {"allthemodium:unobtainium_ingot",colors.magenta,"mysticalagriculture:unobtainium_essence", 0.0139},
+    {"silentgear:blaze_gold_ingot",colors.orange,"",nil},
+    {"alltheores:nickel_ingot",colors.white,"mysticalagriculture:nickel_essence", 0.5},
+    {"allthemodium:allthemodium_ingot",colors.orange,"mysticalagriculture:allthemodium_essence", 0.0139},
+    {"biggerreactors:graphite_ingot",colors.gray,"mysticalagriculture:graphite_essence", 0.625},
+    {"mekanism:ingot_steel",colors.lightGray,"",nil},
+    {"immersiveengineering:ingot_aluminum",colors.lightGray,"",nil},
+    {"silentgear:crimson_steel_ingot",colors.red,"",nil},
+    {"mekanism:ingot_refined_obsidian",colors.purple,"mysticalagriculture:refined_obsidian_essence", 0.25},
+    {"minecraft:netherite_scrap",colors.gray,"",nil},
+    {"minecraft:lapis_lazuli",colors.blue,"mysticalagriculture:lapis_lazuli_essence", 1.5},
+    {"minecraft:diamond",colors.cyan,"mysticalagriculture:diamond_essence", 0.111},
+    {"minecraft:emerald",colors.lime,"mysticalagriculture:emerald_essence", 0.111},
+    {"minecraft:redstone",colors.red,"mysticalagriculture:redstone_essence", 1.5},
+    {"productivebees:draconic_dust",colors.purple,"", nil},
+    {"minecraft:nether_star", colors.white,"mysticalagriculture:nether_star_essence", 0.037},
+    {"alltheores:uranium_ingot", colors.lime,"mysticalagriculture:uranium_essence", 0.25},
+    {"ae2:certus_quartz_crystal",colors.lightBlue,"mysticalagriculture:certus_quartz_essence", 0.75},
+    {"minecraft:quartz",colors.white,"mysticalagriculture:nether_quartz_essence", 1.5},
+    {"ae2:fluix_crystal", colors.purple,"mysticalagriculture:fluix_essence", 0.75}
 }
 
-function getColorIfWantedOre(ore)
+function getWantedOre(ore)
     local wantedOre = nil
-
     for k, v in pairs(OreNames) do
         if ore == v[1] then
-            wantedOre = v[2]
+            wantedOre = v
             break
         end
     end
@@ -51,15 +51,44 @@ function getColorIfWantedOre(ore)
     return wantedOre
 end
 
+function getWantedEssence(essence)
+    local wantedEssence = nil
+    for k, v in pairs(OreNames) do
+        if essence == v[3] then
+            wantedEssence = k
+            break
+        end
+    end
+
+    return wantedEssence
+end
+
+function generateEssenceAmounts(itemList)
+    for k ,v in pairs(itemList) do
+        local essence = getWantedEssence(v["name"])
+        if essence ~= nil then
+            local multiplier = OreNames[essence][4]
+
+            OreNames[essence][5] = math.floor(v["amount"] * multiplier)
+        end
+    end
+end
+
 function createOreList()
     local meItemList = Me.listItems()
     local index = 1
     local ores = {}
 
+    generateEssenceAmounts(meItemList)
+
     for k, v in pairs(meItemList) do
-        local oreColor = getColorIfWantedOre(v["name"])
-        if oreColor ~= nil then
-            ores[index] = { v["amount"], v["displayName"], oreColor}
+        local ore = getWantedOre(v["name"])
+        if ore ~= nil then
+            local amount = v["amount"]
+            if ore[4] ~= nil then
+                amount = amount + ore[5]
+            end
+            ores[index] = { amount, v["displayName"], ore[2]}
             index = index + 1
         end
     end
