@@ -36,8 +36,9 @@ function compareOres(a, b)
 end
 
 function sendOres(ores)
+    local channel = 42
     table.sort(ores, compare)
-    modem.transmit(channel, channel ,ores)
+    Modem.transmit(channel, channel ,ores)
 end
 
 while true do
