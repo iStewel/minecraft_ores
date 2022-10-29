@@ -1,6 +1,34 @@
 Modem = peripheral.wrap("right")
 Me = peripheral.wrap("bottom")
-OreNames = {{}}
+OreNames = {
+    {"alltheores:steel_ingot",colors.gray},
+    {"minecraft:gold_ingot",colors.yellow},
+    {"alltheores:osmium_ingot",colors.lightBlue},
+    {"minecraft:iron_ingot",colors.lightGray},
+    {"allthemodium:vibranium_ingot",colors.green},
+    {"alltheores:tin_ingot",colors.white},
+    {"alltheores:aluminum_ingot",colors.lightGray},
+    {"silentgear:crimson_iron_ingot",colors.pink},
+    {"alltheores:platinum_ingot",colors.cyan},
+    {"alltheores:zinc_ingot",colors.lightBlue},
+    {"minecraft:copper_ingot",colors.orange},
+    {"minecraft:netherite_ingot",colors.gray},
+    {"alltheores:lead_ingot",colors.blue},
+    {"allthemodium:unobtainium_ingot",colors.magenta},
+    {"silentgear:blaze_gold_ingot",colors.orange},
+    {"alltheores:nickel_ingot",colors.white},
+    {"allthemodium:allthemodium_ingot",colors.orange},
+    {"biggerreactors:graphite_ingot",colors.gray},
+    {"mekanism:ingot_steel",colors.lightGray},
+    {"immersiveengineering:ingot_aluminum",colors.lightGray},
+    {"silentgear:crimson_steel_ingot",colors.red},
+    {"mekanism:ingot_refined_obsidian",colors.purple},
+    {"minecraft:netherite_scrap",colors.gray},
+    {"minecraft:lapis_lazuli",colors.blue},
+    {"minecraft:diamond",colors.cyan},
+    {"minecraft:emerald",colors.red},
+    {"productivebees:draconic_dust",colors.purple}
+}
 
 function getColorIfWantedOre(ore)
     local wantedOre = nil
