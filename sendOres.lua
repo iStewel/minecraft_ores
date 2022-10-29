@@ -27,10 +27,11 @@ OreNames = {
     {"minecraft:lapis_lazuli",colors.blue},
     {"minecraft:diamond",colors.cyan},
     {"minecraft:emerald",colors.lime},
-    {"minecraft:redston",colors.red},
+    {"minecraft:redstone",colors.red},
     {"productivebees:draconic_dust",colors.purple},
     {"minecraft:nether_star", colors.white},
-    {"alltheores:uranium_ingot", colors.lime}
+    {"alltheores:uranium_ingot", colors.lime},
+    {"ae2:certus_quartz_crystal",colos.lightBlue}
 }
 
 function getColorIfWantedOre(ore)
