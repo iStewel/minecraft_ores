@@ -26,7 +26,8 @@ OreNames = {
     {"minecraft:netherite_scrap",colors.gray},
     {"minecraft:lapis_lazuli",colors.blue},
     {"minecraft:diamond",colors.cyan},
-    {"minecraft:emerald",colors.red},
+    {"minecraft:emerald",colors.lime},
+    {"minecraft:redston",colors.red},
     {"productivebees:draconic_dust",colors.purple},
     {"minecraft:nether_star", colors.white},
     {"alltheores:uranium_ingot", colors.lime}
