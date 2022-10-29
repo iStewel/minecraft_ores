@@ -1,6 +1,8 @@
 Monitor = peripheral.wrap("back")
 MonX, MonY = Monitor.getSize()
 
+Channel = 42
+
 function getHumanReadableAmount(amount)
     local humanReadable = amount
 
@@ -45,10 +47,8 @@ function clearMonitor()
 end
 
 function receiveOres()
-    local channel = 42
-
     local modem = peripheral.wrap("right")
-    modem.open(channel)
+    modem.open(Channel)
 
     local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
 
