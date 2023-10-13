@@ -4,7 +4,7 @@ Modem = peripheral.wrap("right")
 Channel = 42
 
 function oresTableToJSON(table)
-    local JSON = "ores={["
+    local JSON = "{["
     local i = 0
     for k,v in pairs(table) do
         if i ~= 0 then
@@ -21,12 +21,12 @@ function oresTableToJSON(table)
     end
     JSON = JSON .. "]}"
 
-    return JSON
+    return textutils.urlEncode(JSON)
     
 end
 
 function sendApi(ores)
-    http.post(API_URL, oresTableToJSON(ores))
+    http.post(API_URL, "ores=" .. oresTableToJSON(ores))
 end
 
 function receiveOres()
