@@ -4,7 +4,7 @@ Modem = peripheral.wrap("right")
 Channel = 42
 
 function oresTableToJSON(table)
-    local JSON = "{\"ores\":["
+    local JSON = "ores={["
     local i = 0
     for k,v in pairs(table) do
         if i ~= 0 then
@@ -15,9 +15,9 @@ function oresTableToJSON(table)
         local name = v[2] ~= nil and v[2] or "null"
         local color = v[3] ~= nil and v[3] or "null"
 
-        JSON = JSON .. "{\"amount\":" .. amount .. ", \"name\":\"" .. name .. "\", \"color\":\"" .. color .. "\"}"
+        JSON = JSON .. "{amount:" .. amount .. ", name:" .. name .. ", color:" .. color .. "}"
         
-        i=i+1
+        i = i + 1
     end
     JSON = JSON .. "]}"
 
@@ -41,5 +41,5 @@ end
 
 while true do
     receiveOres()
-    sleep(1o)
+    sleep(10)
 end
