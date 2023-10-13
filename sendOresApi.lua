@@ -1,3 +1,8 @@
+API_URL = ""
+
+Modem = peripheral.wrap("right")
+Channel = 42
+
 function oresTableToJSON(table)
     local JSON = "{\"ores\":["
     local i = 0
@@ -18,4 +23,23 @@ function oresTableToJSON(table)
 
     return JSON
     
+end
+
+function sendApi(ores)
+    http.post(API_URL, oresTableToJSON(ores))
+end
+
+function receiveOres()
+    Modem.open(Channel)
+
+    local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
+
+    if message ~= nil then
+        sendApi(message)
+    end
+end
+
+while true do
+    receiveOres()
+    sleep(1o)
 end
