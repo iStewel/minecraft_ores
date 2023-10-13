@@ -79,17 +79,19 @@ function createOreList()
     local index = 1
     local ores = {}
 
-    generateEssenceAmounts(meItemList)
+    if meItemList ~= nil then
+        generateEssenceAmounts(meItemList)
 
-    for k, v in pairs(meItemList) do
-        local ore = getWantedOre(v["name"])
-        if ore ~= nil then
-            local amount = v["amount"]
-            if ore[4] ~= nil then
-                amount = amount + ore[5]
+        for k, v in pairs(meItemList) do
+            local ore = getWantedOre(v["name"])
+            if ore ~= nil then
+                local amount = v["amount"]
+                if ore[4] ~= nil then
+                    amount = amount + ore[5]
+                end
+                ores[index] = { amount, v["displayName"], ore[2]}
+                index = index + 1
             end
-            ores[index] = { amount, v["displayName"], ore[2]}
-            index = index + 1
         end
     end
 
