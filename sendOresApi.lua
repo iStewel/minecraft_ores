@@ -1,21 +1,20 @@
 API_URL = ""
 
-Modem = peripheral.wrap("right")
+Modem = peripheral.wrap("left")
+Me = peripheral.wrap("bottom")
+
 Channel = 42
 
-function oresTableToJSON(table)
-    local JSON = "{["
+function dataTableToJSON(table)
+    local meItemList = Me.listItems()
+    local JSON = "{\"data\":["
     local i = 0
-    for k,v in pairs(table) do
+    for k,v in pairs(meItemList) do
         if i ~= 0 then
             JSON = JSON .. ","
         end
-        
-        local amount = v[1] ~= nil and tostring(v[1]) or "null"
-        local name = v[2] ~= nil and v[2] or "null"
-        local color = v[3] ~= nil and v[3] or "null"
 
-        JSON = JSON .. "{amount:" .. amount .. ", name:" .. name .. ", color:" .. color .. "}"
+        JSON = JSON .. "{\"amount\":" .. v["amount"] .. ", \"name\":\"" .. v["name"] .. "\", \"displayName\":\"" .. v["displayName"] .. "\"}"
         
         i = i + 1
     end
@@ -25,21 +24,11 @@ function oresTableToJSON(table)
     
 end
 
-function sendApi(ores)
-    http.post(API_URL, "ores=" .. oresTableToJSON(ores))
-end
-
-function receiveOres()
-    Modem.open(Channel)
-
-    local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
-
-    if message ~= nil then
-        sendApi(message)
-    end
+function sendApi()
+    http.post(API_URL, "data=" .. dataTableToJSON())
 end
 
 while true do
-    receiveOres()
+    sendApi()
     sleep(10)
 end
